@@ -9,9 +9,12 @@ REALIZED_PROFIT = 285050
 CASH = 900000
 MONTHLY_BURN = -20000
 
-# 🎯 2035 破億計畫 (校正時空座標：整整 10 年的物理推進)
+# 🎯 真實投入本金 (您的890萬)
+REAL_PRINCIPAL = 8900000 
+
+# 🎯 2035 破億計畫
 START_DATE = datetime.datetime(2026, 1, 1)
-TARGET_DATE = datetime.datetime(2036, 1, 1) # 校正：2035 年底 (即 2036 年 1 月 1 日零時)
+TARGET_DATE = datetime.datetime(2036, 1, 1) 
 TARGET_CAPITAL = 100000000 
 
 # 三地產堡壘 
@@ -29,16 +32,18 @@ except:
 
 # --- 能階運算 ---
 stock_market_value = SHARES * current_price
-stock_equity = stock_market_value - STOCK_LOAN # 0050 扣除借款後的真實淨值
+stock_equity = stock_market_value - STOCK_LOAN 
 
 total_assets = stock_market_value + HOUSE_MARKET_VALUE + CASH
 total_liabilities = STOCK_LOAN + HOUSE_LOAN
 net_worth = total_assets - total_liabilities
 
+# 股市獲利與投報率
 stock_profit = (current_price - COST_AVG) * SHARES + REALIZED_PROFIT
+stock_roi = (stock_profit / REAL_PRINCIPAL) * 100  # 本金投報率 (ROE)
 maintenance_ratio = (stock_market_value / STOCK_LOAN) * 100
 
-# 進度運算 (時間與複利回歸真實 10 年週期)
+# 進度運算
 progress_percent = (net_worth / TARGET_CAPITAL) * 100
 days_left = (TARGET_DATE - now).days
 countdown_bar = ((now - START_DATE).days / (TARGET_DATE - START_DATE).days) * 100
@@ -52,6 +57,7 @@ replacements = {
     '{{total_liabilities}}': f"{total_liabilities/10000:,.1f}",
     '{{net_worth}}': f"{net_worth/10000:,.1f}",
     '{{stock_profit}}': f"{stock_profit/10000:,.1f}",
+    '{{stock_roi}}': f"{stock_roi:.1f}",
     '{{stock_market_value_wan}}': f"{stock_market_value/10000:,.1f}",
     '{{stock_equity_wan}}': f"{stock_equity/10000:,.1f}",
     '{{maintenance_ratio}}': f"{maintenance_ratio:.1f}",
