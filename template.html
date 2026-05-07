@@ -21,13 +21,13 @@
         table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 15px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);}
         th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
         th { background: rgba(37, 99, 235, 0.05); color: var(--accent); font-weight: 600;}
-        .badge { padding: 4px 10px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; }
+        .badge { padding: 4px 10px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; margin-left: 5px;}
     </style>
 </head>
 <body>
 <div class="container">
     <header>
-        <h1>⛰️ 南屯指揮部：資產與負債觀測台</h1>
+        <h1>⛰️ 南屯指揮部：家庭資產觀測台</h1>
         <p style="opacity: 0.8; font-weight: 300; margin-top: 10px;">Mission: 2035 破億階級躍遷計畫</p>
     </header>
 
@@ -45,19 +45,19 @@
 
     <div class="stat-grid">
         <div class="stat-card" style="border-top-color:#94a3b8">
-            <span>系統總位能(市值)</span>
+            <span style="color:#64748b; font-size: 0.9rem;">家庭總資產(市值)</span>
             <div class="stat-value" style="color:#64748b">{{total_assets}} 萬</div>
         </div>
         <div class="stat-card" style="border-top-color:var(--danger)">
-            <span>系統總阻力(負債)</span>
+            <span style="color:#64748b; font-size: 0.9rem;">總負債(房貸+質押)</span>
             <div class="stat-value" style="color:var(--danger)">-{{total_liabilities}} 萬</div>
         </div>
         <div class="stat-card">
-            <span>絕對總淨值</span>
+            <span style="color:#64748b; font-size: 0.9rem;">真實總淨值</span>
             <div class="stat-value">{{net_worth}} 萬</div>
         </div>
         <div class="stat-card" style="border-top-color:var(--success)">
-            <span>質押維持率</span>
+            <span style="color:#64748b; font-size: 0.9rem;">股票防禦力(維持率)</span>
             <div class="stat-value" style="color:var(--success)">{{maintenance_ratio}}%</div>
         </div>
     </div>
@@ -72,16 +72,43 @@
     </div>
 
     <table>
-        <thead><tr><th>核心資產項目</th><th>市值估計</th><th>負債/貸款</th><th>淨值貢獻</th></tr></thead>
+        <thead><tr><th>家庭核心資產</th><th>目前市值</th><th>負債 / 貸款</th><th>真實淨值 (屬於我們的錢)</th></tr></thead>
         <tbody>
-            <tr><td><strong>0050 護國珍珠</strong></td><td>{{stock_market_value_wan}} 萬</td><td>500.0 萬</td><td><span class="badge" style="background:#dcfce7; color:#166534">太陽系巡航中</span></td></tr>
-            <tr><td><strong>地產堡壘 (三間)</strong></td><td>8,215.0 萬</td><td>6,572.0 萬</td><td>1,643.0 萬</td></tr>
-            <tr><td><strong>流動準備金</strong></td><td>90.0 萬</td><td>0.0 萬</td><td>90.0 萬</td></tr>
+            <tr>
+                <td><strong>💎 0050 護國珍珠</strong></td>
+                <td>{{stock_market_value_wan}} 萬</td>
+                <td>500.0 萬</td>
+                <td><strong>{{stock_equity_wan}} 萬</strong><span class="badge" style="background:#dcfce7; color:#166534">穩定增值中</span></td>
+            </tr>
+            <tr>
+                <td><strong>🏢 惠宇清寬</strong></td>
+                <td>2,850.0 萬</td>
+                <td>2,280.0 萬</td>
+                <td><strong>570.0 萬</strong></td>
+            </tr>
+            <tr>
+                <td><strong>🏢 國泰美禾</strong></td>
+                <td>2,933.0 萬</td>
+                <td>2,346.4 萬</td>
+                <td><strong>586.6 萬</strong></td>
+            </tr>
+            <tr>
+                <td><strong>🏢 磐興寬境</strong></td>
+                <td>2,432.0 萬</td>
+                <td>1,945.6 萬</td>
+                <td><strong>486.4 萬</strong></td>
+            </tr>
+            <tr>
+                <td><strong>💰 流動準備金</strong></td>
+                <td>90.0 萬</td>
+                <td>0.0 萬</td>
+                <td><strong>90.0 萬</strong></td>
+            </tr>
         </tbody>
     </table>
 
     <footer style="text-align:center; padding:30px; color:#94a3b8; font-size:0.8rem;">
-        最後觀測：{{update_time}} (CST)<br>理化定律：當位能大於阻力，複利即會產生逃逸速度。
+        最後觀測：{{update_time}} (CST)<br>理化定律：當位能大於阻力，時間與複利會帶著我們抵達終點。
     </footer>
 </div>
 </body>
