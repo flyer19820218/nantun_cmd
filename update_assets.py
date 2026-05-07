@@ -5,7 +5,7 @@ import datetime
 COST_AVG = 64.65
 SHARES = 212000
 STOCK_LOAN = 5000000
-REALIZED_PROFIT = 285050 # 賣3張利潤 + 股利 (能量守恆)
+REALIZED_PROFIT = 285050 
 CASH = 900000
 MONTHLY_BURN = -20000
 
@@ -14,7 +14,7 @@ START_DATE = datetime.datetime(2026, 1, 1)
 TARGET_DATE = datetime.datetime(2035, 1, 1)
 TARGET_CAPITAL = 100000000 
 
-# 三地產堡壘 (市值總和與負債)
+# 三地產堡壘 
 HOUSE_MARKET_VALUE = 28500000 + 29330000 + 24320000
 HOUSE_LOAN = HOUSE_MARKET_VALUE * 0.8
 
@@ -29,6 +29,8 @@ except:
 
 # --- 能階運算 ---
 stock_market_value = SHARES * current_price
+stock_equity = stock_market_value - STOCK_LOAN # 新增：0050 扣除借款後的真實淨值
+
 total_assets = stock_market_value + HOUSE_MARKET_VALUE + CASH
 total_liabilities = STOCK_LOAN + HOUSE_LOAN
 net_worth = total_assets - total_liabilities
@@ -41,7 +43,7 @@ progress_percent = (net_worth / TARGET_CAPITAL) * 100
 days_left = (TARGET_DATE - now).days
 countdown_bar = ((now - START_DATE).days / (TARGET_DATE - START_DATE).days) * 100
 
-# --- 生成 index.html (成品) ---
+# --- 生成 index.html ---
 with open('template.html', 'r', encoding='utf-8') as f:
     content = f.read()
 
@@ -51,6 +53,7 @@ replacements = {
     '{{net_worth}}': f"{net_worth/10000:,.1f}",
     '{{stock_profit}}': f"{stock_profit/10000:,.1f}",
     '{{stock_market_value_wan}}': f"{stock_market_value/10000:,.1f}",
+    '{{stock_equity_wan}}': f"{stock_equity/10000:,.1f}", # 新增變數
     '{{maintenance_ratio}}': f"{maintenance_ratio:.1f}",
     '{{price}}': f"{current_price:.2f}",
     '{{progress_bar_width}}': f"{progress_percent:.2f}",
