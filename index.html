@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>南屯指揮部｜資產戰情室</title>
+    <title>南屯指揮部｜家庭資產戰情室</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛰️</text></svg>">
     <style>
         :root { --accent: #2563eb; --success: #10b981; --warning: #f59e0b; --danger: #ef4444; --bg: #f1f5f9; --card: #ffffff; --text: #334155; }
@@ -11,10 +11,11 @@
         .container { max-width: 1000px; margin: 0 auto; }
         header { text-align: center; padding: 30px; background: #1e293b; color: white; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);}
         h1 { margin: 0; font-size: 2.2rem; letter-spacing: 2px; display: flex; align-items: center; justify-content: center; gap: 10px;}
-        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        .stat-card { background: var(--card); padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid var(--accent); }
-        .stat-value { font-size: 1.6rem; font-weight: 800; color: var(--accent); }
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .stat-card { background: var(--card); padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid var(--accent); display: flex; flex-direction: column; justify-content: center; }
+        .stat-value { font-size: 1.5rem; font-weight: 800; color: var(--accent); margin-top: 5px; }
         .countdown-card { background: var(--card); padding: 25px; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .simulator-card { background: #f8fafc; padding: 25px; border-radius: 20px; margin-bottom: 25px; border: 2px dashed #cbd5e1; }
         .bar-bg { background: #e2e8f0; height: 12px; border-radius: 6px; overflow: hidden; margin: 15px 0; }
         .bar-fill { background: #2f3e5c; height: 100%; width: 3.45%; transition: 1.5s; }
         .main-bar { background: linear-gradient(90deg, var(--accent), var(--success)); height: 24px; border-radius: 12px; width: 33.06%; transition: 1.5s; }
@@ -22,6 +23,7 @@
         th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
         th { background: rgba(37, 99, 235, 0.05); color: var(--accent); font-weight: 600;}
         .badge { padding: 4px 10px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; margin-left: 5px;}
+        input[type="number"] { font-family: inherit; font-weight: bold; color: var(--accent); }
     </style>
 </head>
 <body>
@@ -39,25 +41,30 @@
         </div>
         <div class="bar-bg"><div class="bar-fill"></div></div>
         <div style="display:flex; justify-content:space-between; font-size:0.9rem; color:#64748b;">
-            <span>起點：2026</span><span>進度 3.45%</span>
+            <span>起點：2026</span><span>時間推移 3.45%</span>
         </div>
     </div>
 
     <div class="stat-grid">
         <div class="stat-card" style="border-top-color:#94a3b8">
-            <span style="color:#64748b; font-size: 0.9rem;">家庭總資產(市值)</span>
+            <span style="color:#64748b; font-size: 0.85rem;">家庭總資產(市值)</span>
             <div class="stat-value" style="color:#64748b">10,378.4 萬</div>
         </div>
         <div class="stat-card" style="border-top-color:var(--danger)">
-            <span style="color:#64748b; font-size: 0.9rem;">總負債(房貸+質押)</span>
+            <span style="color:#64748b; font-size: 0.85rem;">總負債(房貸+質押)</span>
             <div class="stat-value" style="color:var(--danger)">-7,072.0 萬</div>
         </div>
-        <div class="stat-card">
-            <span style="color:#64748b; font-size: 0.9rem;">真實總淨值</span>
-            <div class="stat-value">3,306.4 萬</div>
+        <div class="stat-card" style="border-top-color:var(--primary)">
+            <span style="color:#64748b; font-size: 0.85rem;">真實總淨值</span>
+            <div class="stat-value" style="color:var(--primary)">3,306.4 萬</div>
+        </div>
+        <div class="stat-card" style="border-top-color:var(--success); background:#f0fdf4;">
+            <span style="color:#166534; font-size: 0.85rem; font-weight: bold;">股市純作功 (總獲利)</span>
+            <div class="stat-value" style="color:var(--success)">+731.3 萬</div>
+            <div style="font-size: 0.9rem; font-weight: 800; color: var(--success); margin-top: 5px;">投報率 82.2%</div>
         </div>
         <div class="stat-card" style="border-top-color:var(--success)">
-            <span style="color:#64748b; font-size: 0.9rem;">股票防禦力(維持率)</span>
+            <span style="color:#64748b; font-size: 0.85rem;">股票防禦力(維持率)</span>
             <div class="stat-value" style="color:var(--success)">414.7%</div>
         </div>
     </div>
@@ -69,6 +76,19 @@
         </div>
         <div class="bar-bg" style="height:24px;"><div class="main-bar"></div></div>
         <div style="text-align:right; font-weight:bold; color:var(--accent); margin-top: 10px;">33.1% 已完成</div>
+    </div>
+
+    <div class="simulator-card">
+        <h3 style="margin-top:0; color: var(--text);">🔭 財富躍遷模擬器 (目標反推)</h3>
+        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 15px;">輸入您期待的「真實總淨值」目標，系統將自動反推 0050 必須達到的物理價位：</p>
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <span style="font-weight: bold;">我要總淨值達到：</span>
+            <input type="number" id="targetNwInput" value="5000" style="padding: 10px; width: 120px; border: 2px solid #cbd5e1; border-radius: 8px; font-size: 1.2rem; text-align: right; outline: none;">
+            <span style="font-weight: bold;">萬</span>
+            <span style="color: var(--accent); margin: 0 10px;">👉 0050 需漲到</span>
+            <span id="requiredPriceOutput" style="font-size: 1.8rem; font-weight: 900; color: var(--danger);">計算中...</span>
+            <span style="font-weight: bold; color: var(--danger);">元</span>
+        </div>
     </div>
 
     <table>
@@ -108,8 +128,31 @@
     </table>
 
     <footer style="text-align:center; padding:30px; color:#94a3b8; font-size:0.8rem;">
-        最後觀測：2026-05-07 13:07:55 (CST)<br>理化定律：當位能大於阻力，時間與複利會帶著我們抵達終點。
+        最後觀測：2026-05-07 13:25:57 (CST)<br>理化定律：當位能大於阻力，時間與複利會帶著我們抵達終點。
     </footer>
 </div>
+
+<script>
+    const shares = 212000;
+    const fixedNetWorth = 12330000.0; // 扣除股票後的房產現金淨值
+
+    function updateSimulator() {
+        // 取得使用者輸入的目標淨值 (萬)
+        const targetWan = parseFloat(document.getElementById('targetNwInput').value) || 0;
+        const targetTotal = targetWan * 10000;
+        
+        // 公式：目標價位 = (目標淨值 - 固定淨值) / 總股數
+        let requiredPrice = (targetTotal - fixedNetWorth) / shares;
+        if (requiredPrice < 0) requiredPrice = 0;
+        
+        document.getElementById('requiredPriceOutput').innerText = '$' + requiredPrice.toFixed(2);
+    }
+
+    // 監聽輸入框變化，即時運算
+    document.getElementById('targetNwInput').addEventListener('input', updateSimulator);
+    // 網頁載入時先算一次預設值 (5000萬)
+    window.addEventListener('load', updateSimulator);
+</script>
+
 </body>
 </html>
