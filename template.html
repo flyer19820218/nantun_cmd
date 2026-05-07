@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>南屯指揮部｜資產戰情室</title>
+    <title>南屯指揮部｜家庭資產戰情室</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛰️</text></svg>">
     <style>
         :root { --accent: #2563eb; --success: #10b981; --warning: #f59e0b; --danger: #ef4444; --bg: #f1f5f9; --card: #ffffff; --text: #334155; }
@@ -11,9 +11,9 @@
         .container { max-width: 1000px; margin: 0 auto; }
         header { text-align: center; padding: 30px; background: #1e293b; color: white; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);}
         h1 { margin: 0; font-size: 2.2rem; letter-spacing: 2px; display: flex; align-items: center; justify-content: center; gap: 10px;}
-        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        .stat-card { background: var(--card); padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid var(--accent); }
-        .stat-value { font-size: 1.6rem; font-weight: 800; color: var(--accent); }
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .stat-card { background: var(--card); padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid var(--accent); display: flex; flex-direction: column; justify-content: center; }
+        .stat-value { font-size: 1.5rem; font-weight: 800; color: var(--accent); margin-top: 5px; }
         .countdown-card { background: var(--card); padding: 25px; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .bar-bg { background: #e2e8f0; height: 12px; border-radius: 6px; overflow: hidden; margin: 15px 0; }
         .bar-fill { background: #2f3e5c; height: 100%; width: {{countdown_bar_width}}%; transition: 1.5s; }
@@ -39,25 +39,30 @@
         </div>
         <div class="bar-bg"><div class="bar-fill"></div></div>
         <div style="display:flex; justify-content:space-between; font-size:0.9rem; color:#64748b;">
-            <span>起點：2026</span><span>進度 {{countdown_bar_width}}%</span>
+            <span>起點：2026</span><span>時間推移 {{countdown_bar_width}}%</span>
         </div>
     </div>
 
     <div class="stat-grid">
         <div class="stat-card" style="border-top-color:#94a3b8">
-            <span style="color:#64748b; font-size: 0.9rem;">家庭總資產(市值)</span>
+            <span style="color:#64748b; font-size: 0.85rem;">家庭總資產(市值)</span>
             <div class="stat-value" style="color:#64748b">{{total_assets}} 萬</div>
         </div>
         <div class="stat-card" style="border-top-color:var(--danger)">
-            <span style="color:#64748b; font-size: 0.9rem;">總負債(房貸+質押)</span>
+            <span style="color:#64748b; font-size: 0.85rem;">總負債(房貸+質押)</span>
             <div class="stat-value" style="color:var(--danger)">-{{total_liabilities}} 萬</div>
         </div>
-        <div class="stat-card">
-            <span style="color:#64748b; font-size: 0.9rem;">真實總淨值</span>
-            <div class="stat-value">{{net_worth}} 萬</div>
+        <div class="stat-card" style="border-top-color:var(--primary)">
+            <span style="color:#64748b; font-size: 0.85rem;">真實總淨值</span>
+            <div class="stat-value" style="color:var(--primary)">{{net_worth}} 萬</div>
+        </div>
+        <div class="stat-card" style="border-top-color:var(--success); background:#f0fdf4;">
+            <span style="color:#166534; font-size: 0.85rem; font-weight: bold;">股市純作功 (總獲利)</span>
+            <div class="stat-value" style="color:var(--success)">+{{stock_profit}} 萬</div>
+            <div style="font-size: 0.9rem; font-weight: 800; color: var(--success); margin-top: 5px;">投報率 {{stock_roi}}%</div>
         </div>
         <div class="stat-card" style="border-top-color:var(--success)">
-            <span style="color:#64748b; font-size: 0.9rem;">股票防禦力(維持率)</span>
+            <span style="color:#64748b; font-size: 0.85rem;">股票防禦力(維持率)</span>
             <div class="stat-value" style="color:var(--success)">{{maintenance_ratio}}%</div>
         </div>
     </div>
