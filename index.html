@@ -2,50 +2,57 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="南屯神山">
     <title>南屯指揮部｜資產戰情室</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛰️</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%231e293b%22/><text y=%22.75em%22 x=%22.1em%22 font-size=%2275%22>⛰️</text></svg>">
+
     <style>
         :root { --accent: #2563eb; --success: #10b981; --warning: #f59e0b; --danger: #ef4444; --bg: #f1f5f9; --card: #ffffff; --text: #334155; }
-        
-        * { box-sizing: border-box; } /* 🔑 物理關鍵：確保內容不撐破外框 */
-
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 10px; line-height: 1.5; -webkit-text-size-adjust: 100%; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html, body { overflow-x: hidden; width: 100%; margin: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); padding: env(safe-area-inset-top) 10px calc(30px + env(safe-area-inset-bottom)) 10px; line-height: 1.5; -webkit-text-size-adjust: 100%; }
         .container { max-width: 1000px; margin: 0 auto; width: 100%; }
         
-        header { text-align: center; padding: 20px 10px; background: #1e293b; color: white; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);}
-        h1 { margin: 0; font-size: 1.5rem; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; gap: 8px;}
+        header { text-align: center; padding: 20px 10px; background: #1e293b; color: white; border-radius: 15px; margin-bottom: 20px; }
+        h1 { margin: 0; font-size: 1.4rem; display: flex; align-items: center; justify-content: center; gap: 8px;}
         
         .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px; }
         .stat-card { background: var(--card); padding: 15px 10px; border-radius: 12px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-top: 4px solid var(--accent); }
-        .stat-label { font-size: 0.75rem; font-weight: bold; margin-bottom: 5px; color: #64748b; white-space: nowrap; }
-        .stat-value { font-size: 1.2rem; font-weight: 900; white-space: nowrap; }
-        .stat-unit { font-size: 0.8rem; margin-left: 1px; }
+        .stat-label { font-size: 0.75rem; font-weight: bold; color: #64748b; margin-bottom: 5px; }
+        .stat-value { font-size: 1.15rem; font-weight: 900; white-space: nowrap; }
 
-        .countdown-card { background: var(--card); padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .countdown-card, .simulator-card { background: var(--card); padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .bar-bg { background: #e2e8f0; height: 10px; border-radius: 5px; overflow: hidden; margin: 12px 0; }
         .bar-fill { background: #2f3e5c; height: 100%; width: 3.45%; transition: 1.5s; }
-        .main-bar { background: linear-gradient(90deg, var(--accent), var(--success)); height: 20px; border-radius: 10px; width: 33.07%; transition: 1.5s; }
-        
-        /* 🔑 手機版表格溢出保護：讓表格可以滑動而不擠破畫面 */
-        .table-wrapper { width: 100%; overflow-x: auto; background: var(--card); border-radius: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; -webkit-overflow-scrolling: touch; }
-        table { width: 100%; border-collapse: collapse; min-width: 500px; } /* 最小寬度確保在小螢幕上仍可閱讀 */
-        th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #eee; font-size: 0.85rem; }
-        th { background: rgba(37, 99, 235, 0.05); color: var(--accent); font-weight: 600;}
+        .main-bar { background: linear-gradient(90deg, var(--accent), var(--success)); height: 20px; border-radius: 10px; width: 33.04%; transition: 1.5s; }
 
-        .simulator-card { background: #f8fafc; padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 2px dashed #cbd5e1; }
-        input[type="number"] { padding: 8px; width: 100px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; }
+        /* 🔑 核心優化：響應式資產清單 (電腦變表格，手機變字卡) */
+        .asset-list-container { width: 100%; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 15px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        th { background: rgba(37, 99, 235, 0.05); color: var(--accent); font-weight: 600; padding: 15px; text-align: left; }
+        td { padding: 15px; border-bottom: 1px solid #eee; text-align: left; }
 
-        /* 📱 手機端極限優化 */
-        @media (max-width: 480px) {
-            h1 { font-size: 1.2rem; }
-            .stat-grid { grid-template-columns: repeat(2, 1fr); } /* 手機版改為兩欄 */
-            .stat-card:last-child { grid-column: span 2; } /* 最後一張卡片橫跨全寬 */
-            .stat-value { font-size: 1.1rem; }
-            .stat-label { font-size: 0.7rem; }
-            header { padding: 15px 5px; }
+        @media (max-width: 600px) {
+            /* 📱 手機版：強制將表格轉換為字卡模式 */
+            table, thead, tbody, th, td, tr { display: block; }
+            thead { display: none; } /* 隱藏表頭 */
+            tr { margin-bottom: 15px; border-radius: 15px; overflow: hidden; border: 1px solid #e2e8f0; background: var(--card); }
+            td { position: relative; padding-left: 45%; border: none; border-bottom: 1px solid #f1f5f9; min-height: 45px; display: flex; align-items: center; }
+            td:last-child { border-bottom: none; background: rgba(16, 185, 129, 0.03); }
+            
+            /* 注入標籤內容 */
+            td:before { content: attr(data-label); position: absolute; left: 15px; width: 40%; font-weight: bold; color: #64748b; font-size: 0.85rem; }
+            
+            .stat-grid { grid-template-columns: repeat(2, 1fr); }
+            .stat-card:last-child { grid-column: span 2; }
+            input[type="number"] { font-size: 16px !important; }
         }
 
+        input[type="number"] { padding: 8px; width: 100px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 16px; outline: none; }
         footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 0.75rem; }
     </style>
 </head>
@@ -53,74 +60,82 @@
 <div class="container">
     <header>
         <h1>⛰️ 南屯指揮部：資產觀測台</h1>
-        <p style="opacity: 0.8; font-weight: 300; margin-top: 5px; font-size: 0.9rem;">2035 破億階級躍遷計畫</p>
+        <p style="opacity: 0.8; font-size: 0.85rem; margin-top: 5px;">2035 破億階級躍遷計畫</p>
     </header>
 
     <div class="countdown-card">
-        <div style="color: #64748b; font-size: 0.85rem; margin-bottom: 5px;">📅 2026-05-07</div>
-        <div style="display:flex; justify-content:space-between; align-items:baseline;">
-            <span style="font-size: 0.9rem;">🎯 2035 自由倒數</span>
-            <span style="font-size: 1.8rem; font-weight: 800; color: #1e293b;">3,525 天</span>
+        <div style="color: #64748b; font-size: 0.85rem;">📅 2026-05-07</div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:5px;">
+            <span style="font-size: 0.9rem;">🎯 自由倒數</span>
+            <span style="font-size: 1.8rem; font-weight: 800;">3,525 天</span>
         </div>
         <div class="bar-bg"><div class="bar-fill"></div></div>
-        <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:#64748b;">
+        <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:#64748b;">
             <span>起點：2026</span><span>時間已過 3.45%</span>
         </div>
     </div>
 
     <div class="stat-grid">
-        <div class="stat-card" style="border-top-color:#94a3b8">
-            <div class="stat-label">總資產(市值)</div>
-            <div class="stat-value" style="color:#64748b">10,379.4<span class="stat-unit">萬</span></div>
-        </div>
-        <div class="stat-card" style="border-top-color:var(--danger)">
-            <div class="stat-label">總負債(貸款)</div>
-            <div class="stat-value" style="color:var(--danger)">-7,072.0<span class="stat-unit">萬</span></div>
-        </div>
-        <div class="stat-card" style="border-top-color:var(--primary)">
-            <div class="stat-label">真實總淨值</div>
-            <div class="stat-value" style="color:var(--primary)">3,307.4<span class="stat-unit">萬</span></div>
-        </div>
-        <div class="stat-card" style="border-top-color:var(--success); background:#f0fdf4;">
-            <div class="stat-label" style="color:#166534;">股市總獲利</div>
-            <div class="stat-value" style="color:var(--success)">+732.3<span class="stat-unit">萬</span></div>
-            <div style="font-size: 0.75rem; font-weight: 800; color: var(--success);">ROI 82.3%</div>
-        </div>
-        <div class="stat-card" style="border-top-color:var(--success)">
-            <div class="stat-label">維持率(防禦力)</div>
-            <div class="stat-value" style="color:var(--success)">414.9%</div>
-        </div>
+        <div class="stat-card" style="border-top-color:#94a3b8"><div class="stat-label">總資產</div><div class="stat-value" style="color:#64748b">10,376.2萬</div></div>
+        <div class="stat-card" style="border-top-color:var(--danger)"><div class="stat-label">總負債</div><div class="stat-value" style="color:var(--danger)">-7,072.0萬</div></div>
+        <div class="stat-card" style="border-top-color:var(--primary)"><div class="stat-label">真實總淨值</div><div class="stat-value">3,304.2萬</div></div>
+        <div class="stat-card" style="border-top-color:var(--success); background:#f0fdf4;"><div class="stat-label" style="color:#166534;">股市總獲利</div><div class="stat-value" style="color:var(--success)">+729.2萬</div><div style="font-size:0.7rem; font-weight:800; color:var(--success);">ROI 81.9%</div></div>
+        <div class="stat-card" style="border-top-color:var(--success)"><div class="stat-label">防禦維持率</div><div class="stat-value" style="color:var(--success)">414.2%</div></div>
     </div>
 
     <div class="countdown-card">
-        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-            <h3 style="margin:0; font-size:1rem; color:var(--accent);">🚀 破億達成度</h3>
-            <span style="font-weight:bold; font-size:0.85rem;">目標 1 億</span>
-        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><h3 style="margin:0; font-size:1rem; color:var(--accent);">🚀 破億達成度</h3><span style="font-weight:bold; font-size:0.85rem;">目標 1 億</span></div>
         <div class="bar-bg" style="height:20px;"><div class="main-bar"></div></div>
-        <div style="text-align:right; font-weight:bold; color:var(--accent); font-size:0.85rem;">33.1% 已解鎖</div>
+        <div style="text-align:right; font-weight:bold; color:var(--accent); font-size:0.85rem; margin-top:5px;">33.0% 已完成</div>
     </div>
 
     <div class="simulator-card">
-        <h3 style="margin-top:0; font-size: 1rem;">🔭 未來能階模擬器</h3>
-        <div style="font-size: 0.85rem; margin-bottom: 10px;">目標淨值：<input type="number" id="targetNwInput" value="5000"> 萬</div>
-        <div style="font-weight: bold; color: var(--danger); font-size: 1.1rem;">👉 0050 需漲到：<span id="requiredPriceOutput">$---</span></div>
+        <h3 style="margin:0; font-size:1rem; margin-bottom:10px;">🔭 未來能階模擬器</h3>
+        <div style="font-size: 0.9rem;">目標淨值：<input type="number" id="targetNwInput" value="5000"> 萬</div>
+        <div style="font-weight: bold; color: var(--danger); font-size: 1.1rem; margin-top:10px;">👉 0050 需漲到：<span id="requiredPriceOutput">$---</span></div>
     </div>
 
-    <div class="table-wrapper">
+    <div class="asset-list-container">
         <table>
-            <thead><tr><th>資產項目</th><th>市值</th><th>負債</th><th>屬於我們的錢</th></tr></thead>
+            <thead>
+                <tr><th>資產項目</th><th>市值</th><th>負債</th><th>屬於我們的錢</th></tr>
+            </thead>
             <tbody>
-                <tr><td>💎 0050</td><td>2,074.4 萬</td><td>500.0 萬</td><td>1,574.4 萬</td></tr>
-                <tr><td>🏢 惠宇清寬</td><td>2,850.0 萬</td><td>2,280.0 萬</td><td>570.0 萬</td></tr>
-                <tr><td>🏢 國泰美禾</td><td>2,933.0 萬</td><td>2,346.4 萬</td><td>586.6 萬</td></tr>
-                <tr><td>🏢 磐興寬境</td><td>2,432.0 萬</td><td>1,945.6 萬</td><td>486.4 萬</td></tr>
-                <tr><td>💰 預備金</td><td>90.0 萬</td><td>0.0 萬</td><td>90.0 萬</td></tr>
+                <tr>
+                    <td data-label="資產項目"><strong>💎 0050</strong></td>
+                    <td data-label="市值">2,071.2 萬</td>
+                    <td data-label="負債">500.0 萬</td>
+                    <td data-label="我們的錢"><strong>1,571.2 萬</strong></td>
+                </tr>
+                <tr>
+                    <td data-label="資產項目"><strong>🏢 惠宇清寬</strong></td>
+                    <td data-label="市值">2,850.0 萬</td>
+                    <td data-label="負債">2,280.0 萬</td>
+                    <td data-label="我們的錢"><strong>570.0 萬</strong></td>
+                </tr>
+                <tr>
+                    <td data-label="資產項目"><strong>🏢 國泰美禾</strong></td>
+                    <td data-label="市值">2,933.0 萬</td>
+                    <td data-label="負債">2,346.4 萬</td>
+                    <td data-label="我們的錢"><strong>586.6 萬</strong></td>
+                </tr>
+                <tr>
+                    <td data-label="資產項目"><strong>🏢 磐興寬境</strong></td>
+                    <td data-label="市值">2,432.0 萬</td>
+                    <td data-label="負債">1,945.6 萬</td>
+                    <td data-label="我們的錢"><strong>486.4 萬</strong></td>
+                </tr>
+                <tr>
+                    <td data-label="資產項目"><strong>💰 預備金</strong></td>
+                    <td data-label="市值">90.0 萬</td>
+                    <td data-label="負債">0.0 萬</td>
+                    <td data-label="我們的錢"><strong>90.0 萬</strong></td>
+                </tr>
             </tbody>
         </table>
     </div>
 
-    <footer>最後觀測：2026-05-07 13:45:01 (CST)</footer>
+    <footer>最後觀測：2026-05-07 13:59:39 (CST)</footer>
 </div>
 
 <script>
