@@ -2,16 +2,38 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="南屯神山">
+    
     <title>南屯指揮部｜資產戰情室</title>
+    
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛰️</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%231e293b%22/><text y=%22.75em%22 x=%22.1em%22 font-size=%2275%22>⛰️</text></svg>">
+
     <style>
         :root { --accent: #2563eb; --success: #10b981; --warning: #f59e0b; --danger: #ef4444; --bg: #f1f5f9; --card: #ffffff; --text: #334155; }
         
-        * { box-sizing: border-box; } /* 🔑 物理關鍵：確保內容不撐破外框 */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 10px; line-height: 1.5; -webkit-text-size-adjust: 100%; }
-        .container { max-width: 1000px; margin: 0 auto; width: 100%; }
+        /* 🔑 橫向鎖定裝甲 + iPhone 底部安全距離 */
+        html, body { 
+            overflow-x: hidden; 
+            width: 100%; 
+            margin: 0; 
+        }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background: var(--bg); color: var(--text); 
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) calc(20px + env(safe-area-inset-bottom)) env(safe-area-inset-left); 
+            line-height: 1.5; 
+            -webkit-text-size-adjust: 100%; 
+        }
+        
+        .container { max-width: 1000px; margin: 0 auto; padding: 10px; width: 100%; overflow-x: hidden; }
         
         header { text-align: center; padding: 20px 10px; background: #1e293b; color: white; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);}
         h1 { margin: 0; font-size: 1.5rem; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; gap: 8px;}
@@ -27,20 +49,21 @@
         .bar-fill { background: #2f3e5c; height: 100%; width: {{countdown_bar_width}}%; transition: 1.5s; }
         .main-bar { background: linear-gradient(90deg, var(--accent), var(--success)); height: 20px; border-radius: 10px; width: {{progress_bar_width}}%; transition: 1.5s; }
         
-        /* 🔑 手機版表格溢出保護：讓表格可以滑動而不擠破畫面 */
-        .table-wrapper { width: 100%; overflow-x: auto; background: var(--card); border-radius: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; -webkit-overflow-scrolling: touch; }
-        table { width: 100%; border-collapse: collapse; min-width: 500px; } /* 最小寬度確保在小螢幕上仍可閱讀 */
+        /* 🔑 表格溢出防護裝甲 */
+        .table-wrapper { width: 100%; max-width: 100vw; overflow-x: auto; background: var(--card); border-radius: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; -webkit-overflow-scrolling: touch; }
+        table { width: 100%; border-collapse: collapse; min-width: 450px; }
         th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #eee; font-size: 0.85rem; }
         th { background: rgba(37, 99, 235, 0.05); color: var(--accent); font-weight: 600;}
 
         .simulator-card { background: #f8fafc; padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 2px dashed #cbd5e1; }
-        input[type="number"] { padding: 8px; width: 100px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; }
+        
+        /* 🔑 iOS 死亡放大的解藥：字體絕對不能小於 16px */
+        input[type="number"] { padding: 8px; width: 100px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 16px !important; outline: none; }
 
-        /* 📱 手機端極限優化 */
         @media (max-width: 480px) {
             h1 { font-size: 1.2rem; }
-            .stat-grid { grid-template-columns: repeat(2, 1fr); } /* 手機版改為兩欄 */
-            .stat-card:last-child { grid-column: span 2; } /* 最後一張卡片橫跨全寬 */
+            .stat-grid { grid-template-columns: repeat(2, 1fr); } 
+            .stat-card:last-child { grid-column: span 2; } 
             .stat-value { font-size: 1.1rem; }
             .stat-label { font-size: 0.7rem; }
             header { padding: 15px 5px; }
@@ -84,7 +107,7 @@
         <div class="stat-card" style="border-top-color:var(--success); background:#f0fdf4;">
             <div class="stat-label" style="color:#166534;">股市總獲利</div>
             <div class="stat-value" style="color:var(--success)">+{{stock_profit}}<span class="stat-unit">萬</span></div>
-            <div style="font-size: 0.75rem; font-weight: 800; color: var(--success);">ROI {{stock_roi}}%</div>
+            <div style="font-size: 0.75rem; font-weight: 800; color: var(--success); margin-top:4px;">ROI {{stock_roi}}%</div>
         </div>
         <div class="stat-card" style="border-top-color:var(--success)">
             <div class="stat-label">維持率(防禦力)</div>
@@ -98,13 +121,17 @@
             <span style="font-weight:bold; font-size:0.85rem;">目標 1 億</span>
         </div>
         <div class="bar-bg" style="height:20px;"><div class="main-bar"></div></div>
-        <div style="text-align:right; font-weight:bold; color:var(--accent); font-size:0.85rem;">{{progress_text}}% 已解鎖</div>
+        <div style="text-align:right; font-weight:bold; color:var(--accent); font-size:0.85rem; margin-top: 5px;">{{progress_text}}% 已解鎖</div>
     </div>
 
     <div class="simulator-card">
         <h3 style="margin-top:0; font-size: 1rem;">🔭 未來能階模擬器</h3>
-        <div style="font-size: 0.85rem; margin-bottom: 10px;">目標淨值：<input type="number" id="targetNwInput" value="5000"> 萬</div>
-        <div style="font-weight: bold; color: var(--danger); font-size: 1.1rem;">👉 0050 需漲到：<span id="requiredPriceOutput">$---</span></div>
+        <div style="font-size: 0.85rem; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;">
+            <span>目標淨值：</span>
+            <input type="number" id="targetNwInput" value="5000"> 
+            <span>萬</span>
+        </div>
+        <div style="font-weight: bold; color: var(--danger); font-size: 1.1rem; margin-top: 10px;">👉 0050 需漲到：<span id="requiredPriceOutput">$---</span></div>
     </div>
 
     <div class="table-wrapper">
