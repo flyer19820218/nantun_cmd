@@ -9,10 +9,8 @@ REALIZED_PROFIT = 285050
 CASH = 900000
 MONTHLY_BURN = -20000
 
-# 🎯 真實投入本金 (您的890萬)
 REAL_PRINCIPAL = 8900000 
 
-# 🎯 2035 破億計畫
 START_DATE = datetime.datetime(2026, 1, 1)
 TARGET_DATE = datetime.datetime(2036, 1, 1) 
 TARGET_CAPITAL = 100000000 
@@ -38,12 +36,13 @@ total_assets = stock_market_value + HOUSE_MARKET_VALUE + CASH
 total_liabilities = STOCK_LOAN + HOUSE_LOAN
 net_worth = total_assets - total_liabilities
 
-# 股市獲利與投報率
+# 計算非股票的「固定淨值」給模擬器使用 (單位：元)
+fixed_net_worth = HOUSE_MARKET_VALUE + CASH - total_liabilities
+
 stock_profit = (current_price - COST_AVG) * SHARES + REALIZED_PROFIT
-stock_roi = (stock_profit / REAL_PRINCIPAL) * 100  # 本金投報率 (ROE)
+stock_roi = (stock_profit / REAL_PRINCIPAL) * 100  
 maintenance_ratio = (stock_market_value / STOCK_LOAN) * 100
 
-# 進度運算
 progress_percent = (net_worth / TARGET_CAPITAL) * 100
 days_left = (TARGET_DATE - now).days
 countdown_bar = ((now - START_DATE).days / (TARGET_DATE - START_DATE).days) * 100
@@ -67,7 +66,9 @@ replacements = {
     '{{days_left}}': f"{days_left:,}",
     '{{countdown_bar_width}}': f"{countdown_bar:.2f}",
     '{{current_date}}': now.strftime('%Y-%m-%d'),
-    '{{update_time}}': now.strftime('%Y-%m-%d %H:%M:%S')
+    '{{update_time}}': now.strftime('%Y-%m-%d %H:%M:%S'),
+    '{{shares}}': str(SHARES),
+    '{{fixed_net_worth}}': str(fixed_net_worth)
 }
 
 for key, value in replacements.items():
