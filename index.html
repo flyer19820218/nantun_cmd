@@ -2,157 +2,138 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>南屯指揮部｜家庭資產戰情室</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>南屯指揮部｜資產戰情室</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛰️</text></svg>">
     <style>
         :root { --accent: #2563eb; --success: #10b981; --warning: #f59e0b; --danger: #ef4444; --bg: #f1f5f9; --card: #ffffff; --text: #334155; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; line-height: 1.6;}
-        .container { max-width: 1000px; margin: 0 auto; }
-        header { text-align: center; padding: 30px; background: #1e293b; color: white; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);}
-        h1 { margin: 0; font-size: 2.2rem; letter-spacing: 2px; display: flex; align-items: center; justify-content: center; gap: 10px;}
-        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        .stat-card { background: var(--card); padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid var(--accent); display: flex; flex-direction: column; justify-content: center; }
-        .stat-value { font-size: 1.5rem; font-weight: 800; color: var(--accent); margin-top: 5px; }
-        .countdown-card { background: var(--card); padding: 25px; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .simulator-card { background: #f8fafc; padding: 25px; border-radius: 20px; margin-bottom: 25px; border: 2px dashed #cbd5e1; }
-        .bar-bg { background: #e2e8f0; height: 12px; border-radius: 6px; overflow: hidden; margin: 15px 0; }
+        
+        * { box-sizing: border-box; } /* 🔑 物理關鍵：確保內容不撐破外框 */
+
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 10px; line-height: 1.5; -webkit-text-size-adjust: 100%; }
+        .container { max-width: 1000px; margin: 0 auto; width: 100%; }
+        
+        header { text-align: center; padding: 20px 10px; background: #1e293b; color: white; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);}
+        h1 { margin: 0; font-size: 1.5rem; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; gap: 8px;}
+        
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px; }
+        .stat-card { background: var(--card); padding: 15px 10px; border-radius: 12px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-top: 4px solid var(--accent); }
+        .stat-label { font-size: 0.75rem; font-weight: bold; margin-bottom: 5px; color: #64748b; white-space: nowrap; }
+        .stat-value { font-size: 1.2rem; font-weight: 900; white-space: nowrap; }
+        .stat-unit { font-size: 0.8rem; margin-left: 1px; }
+
+        .countdown-card { background: var(--card); padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .bar-bg { background: #e2e8f0; height: 10px; border-radius: 5px; overflow: hidden; margin: 12px 0; }
         .bar-fill { background: #2f3e5c; height: 100%; width: 3.45%; transition: 1.5s; }
-        .main-bar { background: linear-gradient(90deg, var(--accent), var(--success)); height: 24px; border-radius: 12px; width: 33.11%; transition: 1.5s; }
-        table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 15px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);}
-        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+        .main-bar { background: linear-gradient(90deg, var(--accent), var(--success)); height: 20px; border-radius: 10px; width: 33.07%; transition: 1.5s; }
+        
+        /* 🔑 手機版表格溢出保護：讓表格可以滑動而不擠破畫面 */
+        .table-wrapper { width: 100%; overflow-x: auto; background: var(--card); border-radius: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; -webkit-overflow-scrolling: touch; }
+        table { width: 100%; border-collapse: collapse; min-width: 500px; } /* 最小寬度確保在小螢幕上仍可閱讀 */
+        th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #eee; font-size: 0.85rem; }
         th { background: rgba(37, 99, 235, 0.05); color: var(--accent); font-weight: 600;}
-        .badge { padding: 4px 10px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; margin-left: 5px;}
-        input[type="number"] { font-family: inherit; font-weight: bold; color: var(--accent); }
+
+        .simulator-card { background: #f8fafc; padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 2px dashed #cbd5e1; }
+        input[type="number"] { padding: 8px; width: 100px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; }
+
+        /* 📱 手機端極限優化 */
+        @media (max-width: 480px) {
+            h1 { font-size: 1.2rem; }
+            .stat-grid { grid-template-columns: repeat(2, 1fr); } /* 手機版改為兩欄 */
+            .stat-card:last-child { grid-column: span 2; } /* 最後一張卡片橫跨全寬 */
+            .stat-value { font-size: 1.1rem; }
+            .stat-label { font-size: 0.7rem; }
+            header { padding: 15px 5px; }
+        }
+
+        footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 0.75rem; }
     </style>
 </head>
 <body>
 <div class="container">
     <header>
-        <h1>⛰️ 南屯指揮部：家庭資產觀測台</h1>
-        <p style="opacity: 0.8; font-weight: 300; margin-top: 10px;">Mission: 2035 破億階級躍遷計畫</p>
+        <h1>⛰️ 南屯指揮部：資產觀測台</h1>
+        <p style="opacity: 0.8; font-weight: 300; margin-top: 5px; font-size: 0.9rem;">2035 破億階級躍遷計畫</p>
     </header>
 
     <div class="countdown-card">
-        <div style="color: #64748b; font-size: 0.95rem; margin-bottom: 10px;">📅 今日：2026-05-07</div>
+        <div style="color: #64748b; font-size: 0.85rem; margin-bottom: 5px;">📅 2026-05-07</div>
         <div style="display:flex; justify-content:space-between; align-items:baseline;">
-            <span style="font-size: 1.1rem;">🎯 距離 2035 財務自由</span>
-            <span style="font-size: 2.2rem; font-weight: 800; color: #1e293b;">3,525 天</span>
+            <span style="font-size: 0.9rem;">🎯 2035 自由倒數</span>
+            <span style="font-size: 1.8rem; font-weight: 800; color: #1e293b;">3,525 天</span>
         </div>
         <div class="bar-bg"><div class="bar-fill"></div></div>
-        <div style="display:flex; justify-content:space-between; font-size:0.9rem; color:#64748b;">
-            <span>起點：2026</span><span>時間推移 3.45%</span>
+        <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:#64748b;">
+            <span>起點：2026</span><span>時間已過 3.45%</span>
         </div>
     </div>
 
     <div class="stat-grid">
         <div class="stat-card" style="border-top-color:#94a3b8">
-            <span style="color:#64748b; font-size: 0.85rem;">家庭總資產(市值)</span>
-            <div class="stat-value" style="color:#64748b">10,382.6 萬</div>
+            <div class="stat-label">總資產(市值)</div>
+            <div class="stat-value" style="color:#64748b">10,379.4<span class="stat-unit">萬</span></div>
         </div>
         <div class="stat-card" style="border-top-color:var(--danger)">
-            <span style="color:#64748b; font-size: 0.85rem;">總負債(房貸+質押)</span>
-            <div class="stat-value" style="color:var(--danger)">-7,072.0 萬</div>
+            <div class="stat-label">總負債(貸款)</div>
+            <div class="stat-value" style="color:var(--danger)">-7,072.0<span class="stat-unit">萬</span></div>
         </div>
         <div class="stat-card" style="border-top-color:var(--primary)">
-            <span style="color:#64748b; font-size: 0.85rem;">真實總淨值</span>
-            <div class="stat-value" style="color:var(--primary)">3,310.6 萬</div>
+            <div class="stat-label">真實總淨值</div>
+            <div class="stat-value" style="color:var(--primary)">3,307.4<span class="stat-unit">萬</span></div>
         </div>
         <div class="stat-card" style="border-top-color:var(--success); background:#f0fdf4;">
-            <span style="color:#166534; font-size: 0.85rem; font-weight: bold;">股市總獲利</span>
-            <div class="stat-value" style="color:var(--success)">+735.5 萬</div>
-            <div style="font-size: 0.9rem; font-weight: 800; color: var(--success); margin-top: 5px;">投報率 82.6%</div>
+            <div class="stat-label" style="color:#166534;">股市總獲利</div>
+            <div class="stat-value" style="color:var(--success)">+732.3<span class="stat-unit">萬</span></div>
+            <div style="font-size: 0.75rem; font-weight: 800; color: var(--success);">ROI 82.3%</div>
         </div>
         <div class="stat-card" style="border-top-color:var(--success)">
-            <span style="color:#64748b; font-size: 0.85rem;">股票防禦力(維持率)</span>
-            <div class="stat-value" style="color:var(--success)">415.5%</div>
+            <div class="stat-label">維持率(防禦力)</div>
+            <div class="stat-value" style="color:var(--success)">414.9%</div>
         </div>
     </div>
 
     <div class="countdown-card">
-        <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
-            <h3 style="margin:0; font-size:1.1rem; color:var(--accent);">🚀 破億達成度</h3>
-            <span style="font-weight:bold;">目標 1 億</span>
+        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+            <h3 style="margin:0; font-size:1rem; color:var(--accent);">🚀 破億達成度</h3>
+            <span style="font-weight:bold; font-size:0.85rem;">目標 1 億</span>
         </div>
-        <div class="bar-bg" style="height:24px;"><div class="main-bar"></div></div>
-        <div style="text-align:right; font-weight:bold; color:var(--accent); margin-top: 10px;">33.1% 已完成</div>
+        <div class="bar-bg" style="height:20px;"><div class="main-bar"></div></div>
+        <div style="text-align:right; font-weight:bold; color:var(--accent); font-size:0.85rem;">33.1% 已解鎖</div>
     </div>
 
     <div class="simulator-card">
-        <h3 style="margin-top:0; color: var(--text);">🔭 財富躍遷模擬器 (目標反推)</h3>
-        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 15px;">輸入您期待的「真實總淨值」目標，系統將自動反推 0050 必須達到的物理價位：</p>
-        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-            <span style="font-weight: bold;">我要總淨值達到：</span>
-            <input type="number" id="targetNwInput" value="5000" style="padding: 10px; width: 120px; border: 2px solid #cbd5e1; border-radius: 8px; font-size: 1.2rem; text-align: right; outline: none;">
-            <span style="font-weight: bold;">萬</span>
-            <span style="color: var(--accent); margin: 0 10px;">👉 0050 需漲到</span>
-            <span id="requiredPriceOutput" style="font-size: 1.8rem; font-weight: 900; color: var(--danger);">計算中...</span>
-            <span style="font-weight: bold; color: var(--danger);">元</span>
-        </div>
+        <h3 style="margin-top:0; font-size: 1rem;">🔭 未來能階模擬器</h3>
+        <div style="font-size: 0.85rem; margin-bottom: 10px;">目標淨值：<input type="number" id="targetNwInput" value="5000"> 萬</div>
+        <div style="font-weight: bold; color: var(--danger); font-size: 1.1rem;">👉 0050 需漲到：<span id="requiredPriceOutput">$---</span></div>
     </div>
 
-    <table>
-        <thead><tr><th>家庭核心資產</th><th>目前市值</th><th>負債 / 貸款</th><th>真實淨值 (屬於我們的錢)</th></tr></thead>
-        <tbody>
-            <tr>
-                <td><strong>💎 0050 護國珍珠</strong></td>
-                <td>2,077.6 萬</td>
-                <td>500.0 萬</td>
-                <td><strong>1,577.6 萬</strong><span class="badge" style="background:#dcfce7; color:#166534">穩定增值中</span></td>
-            </tr>
-            <tr>
-                <td><strong>🏢 惠宇清寬</strong></td>
-                <td>2,850.0 萬</td>
-                <td>2,280.0 萬</td>
-                <td><strong>570.0 萬</strong></td>
-            </tr>
-            <tr>
-                <td><strong>🏢 國泰美禾</strong></td>
-                <td>2,933.0 萬</td>
-                <td>2,346.4 萬</td>
-                <td><strong>586.6 萬</strong></td>
-            </tr>
-            <tr>
-                <td><strong>🏢 磐興寬境</strong></td>
-                <td>2,432.0 萬</td>
-                <td>1,945.6 萬</td>
-                <td><strong>486.4 萬</strong></td>
-            </tr>
-            <tr>
-                <td><strong>💰 流動準備金</strong></td>
-                <td>90.0 萬</td>
-                <td>0.0 萬</td>
-                <td><strong>90.0 萬</strong></td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th>資產項目</th><th>市值</th><th>負債</th><th>屬於我們的錢</th></tr></thead>
+            <tbody>
+                <tr><td>💎 0050</td><td>2,074.4 萬</td><td>500.0 萬</td><td>1,574.4 萬</td></tr>
+                <tr><td>🏢 惠宇清寬</td><td>2,850.0 萬</td><td>2,280.0 萬</td><td>570.0 萬</td></tr>
+                <tr><td>🏢 國泰美禾</td><td>2,933.0 萬</td><td>2,346.4 萬</td><td>586.6 萬</td></tr>
+                <tr><td>🏢 磐興寬境</td><td>2,432.0 萬</td><td>1,945.6 萬</td><td>486.4 萬</td></tr>
+                <tr><td>💰 預備金</td><td>90.0 萬</td><td>0.0 萬</td><td>90.0 萬</td></tr>
+            </tbody>
+        </table>
+    </div>
 
-    <footer style="text-align:center; padding:30px; color:#94a3b8; font-size:0.8rem;">
-        最後觀測：2026-05-07 13:32:55 (CST)<br>理化定律：當位能大於阻力，時間與複利會帶著我們抵達終點。
-    </footer>
+    <footer>最後觀測：2026-05-07 13:45:01 (CST)</footer>
 </div>
 
 <script>
     const shares = 212000;
-    const fixedNetWorth = 12330000.0; // 扣除股票後的房產現金淨值
-
+    const fixedNetWorth = 12330000.0;
     function updateSimulator() {
-        // 取得使用者輸入的目標淨值 (萬)
         const targetWan = parseFloat(document.getElementById('targetNwInput').value) || 0;
         const targetTotal = targetWan * 10000;
-        
-        // 公式：目標價位 = (目標淨值 - 固定淨值) / 總股數
-        let requiredPrice = (targetTotal - fixedNetWorth) / shares;
-        if (requiredPrice < 0) requiredPrice = 0;
-        
-        document.getElementById('requiredPriceOutput').innerText = '$' + requiredPrice.toFixed(2);
+        let reqPrice = (targetTotal - fixedNetWorth) / shares;
+        document.getElementById('requiredPriceOutput').innerText = '$' + (reqPrice < 0 ? 0 : reqPrice).toFixed(2);
     }
-
-    // 監聽輸入框變化，即時運算
     document.getElementById('targetNwInput').addEventListener('input', updateSimulator);
-    // 網頁載入時先算一次預設值 (5000萬)
     window.addEventListener('load', updateSimulator);
 </script>
-
 </body>
 </html>
