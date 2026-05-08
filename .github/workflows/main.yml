@@ -2,8 +2,10 @@ name: 🏔️ 南屯指揮部自動化觀測
 
 on:
   schedule:
-    - cron: '*/5 1-4 * * 1-5' # 台灣 09:00 - 12:55
-    - cron: '0,5,10,15,20,25,30 5 * * 1-5' # 台灣 13:00 - 13:30
+    # 第一段：涵蓋台灣時間 09:00 到 12:55 (UTC 01:00 ~ 04:55)，每5分鐘一次
+    - cron: '*/5 1-4 * * 1-5'
+    # 第二段：涵蓋台灣時間 13:00 到 13:30 (UTC 05:00 ~ 05:30)，每5分鐘一次
+    - cron: '0-30/5 5 * * 1-5'
   workflow_dispatch:
 
 permissions:
@@ -27,5 +29,5 @@ jobs:
           git config --global user.name "CommandBot"
           git config --global user.email "bot@github.com"
           git add index.html
-          git commit -m "🚀 重啟純化實驗: $(date)" || exit 0
+          git commit -m "🚀 戰情室同步更新: $(date)" || exit 0
           git push
