@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="南屯神山">
-    <title>南屯指揮部｜資產戰情室</title>
+    <title>南屯指揮部｜資產戰情室 (新紀元)</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛰️</text></svg>">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%231e293b%22/><text y=%22.75em%22 x=%22.1em%22 font-size=%2275%22>⛰️</text></svg>">
 
@@ -17,7 +17,7 @@
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); padding: env(safe-area-inset-top) 10px calc(30px + env(safe-area-inset-bottom)) 10px; line-height: 1.5; -webkit-text-size-adjust: 100%; }
         .container { max-width: 1000px; margin: 0 auto; width: 100%; }
         
-        header { text-align: center; padding: 20px 10px; background: #1e293b; color: white; border-radius: 15px; margin-bottom: 20px; }
+        header { text-align: center; padding: 20px 10px; background: #0f172a; color: white; border-radius: 15px; margin-bottom: 20px; border-bottom: 4px solid var(--warning); }
         h1 { margin: 0; font-size: 1.4rem; display: flex; align-items: center; justify-content: center; gap: 8px;}
         
         .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px; }
@@ -28,7 +28,7 @@
         .countdown-card, .simulator-card { background: var(--card); padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .bar-bg { background: #e2e8f0; height: 10px; border-radius: 5px; overflow: hidden; margin: 12px 0; }
         .bar-fill { background: #2f3e5c; height: 100%; width: 5.12%; transition: 1.5s; }
-        .main-bar { background: linear-gradient(90deg, var(--accent), var(--success)); height: 20px; border-radius: 10px; width: 33.36%; transition: 1.5s; }
+        .main-bar { background: linear-gradient(90deg, var(--warning), var(--danger)); height: 20px; border-radius: 10px; width: 33.36%; transition: 1.5s; }
 
         .asset-list-container { width: 100%; margin-bottom: 20px; }
         table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 15px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
@@ -54,8 +54,8 @@
 <body>
 <div class="container">
     <header>
-        <h1>⛰️ 南屯指揮部：資產觀測台</h1>
-        <p style="opacity: 0.8; font-size: 0.85rem; margin-top: 5px;">2035 破億階級躍遷計畫</p>
+        <h1>🔥 南屯指揮部：新紀元觀測台</h1>
+        <p style="opacity: 0.8; font-size: 0.85rem; margin-top: 5px;">目標鎖定：TSM 4,000 元 ｜ 正二翻倍計畫</p>
     </header>
 
     <div class="countdown-card">
@@ -66,7 +66,7 @@
         </div>
         <div class="bar-bg"><div class="bar-fill"></div></div>
         <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:#64748b;">
-            <span>起點：2026</span><span>時間已過 5.12%</span>
+            <span>起點：2026 新紀元</span><span>時間已過 5.12%</span>
         </div>
     </div>
 
@@ -74,26 +74,30 @@
         <div class="stat-card" style="border-top-color:#94a3b8"><div class="stat-label">總資產</div><div class="stat-value" style="color:#64748b">9,908.1萬</div></div>
         <div class="stat-card" style="border-top-color:var(--danger)"><div class="stat-label">總負債</div><div class="stat-value" style="color:var(--danger)">-6,572.0萬</div></div>
         <div class="stat-card" style="border-top-color:var(--primary)"><div class="stat-label">真實總淨值</div><div class="stat-value">3,336.1萬</div></div>
-        <div class="stat-card" style="border-top-color:var(--success); background:#f0fdf4;"><div class="stat-label" style="color:#166534;">股市總獲利</div><div class="stat-value" style="color:var(--success)">+803.1萬</div><div style="font-size:0.7rem; font-weight:800; color:var(--success);">ROI 90.2%</div></div>
-        <div class="stat-card" style="border-top-color:var(--success)"><div class="stat-label">防禦維持率</div><div class="stat-value" style="color:var(--success)">無借貸</div><div style="font-size:0.7rem; font-weight:800; color:var(--success);">100% 絕對防禦</div></div>
+        <div class="stat-card" style="border-top-color:var(--success); background:#f0fdf4;">
+            <div class="stat-label" style="color:#166534;">股市總獲利</div>
+            <div class="stat-value" style="color:var(--success)">1,300.0萬</div>
+            <div style="font-size:0.7rem; font-weight:800; color:var(--success);">自 2015 年累積<br>今日為新起點</div>
+        </div>
+        <div class="stat-card" style="border-top-color:var(--success)"><div class="stat-label">整體曝險率</div><div class="stat-value" style="color:var(--success)">75.4%</div><div style="font-size:0.7rem; font-weight:800; color:var(--success);">絕對防禦模式</div></div>
     </div>
 
     <div class="countdown-card">
-        <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><h3 style="margin:0; font-size:1rem; color:var(--accent);">🚀 破億達成度</h3><span style="font-weight:bold; font-size:0.85rem;">目標 1 億</span></div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><h3 style="margin:0; font-size:1rem; color:var(--danger);">🚀 破億達成度 (固化基期)</h3><span style="font-weight:bold; font-size:0.85rem;">目標 1 億</span></div>
         <div class="bar-bg" style="height:20px;"><div class="main-bar"></div></div>
-        <div style="text-align:right; font-weight:bold; color:var(--accent); font-size:0.85rem; margin-top:5px;">33.4% 已完成</div>
+        <div style="text-align:right; font-weight:bold; color:var(--danger); font-size:0.85rem; margin-top:5px;">33.4% 基礎盤已鎖定</div>
     </div>
 
     <div class="simulator-card">
-        <h3 style="margin:0; font-size:1rem; margin-bottom:10px;">🔭 未來能階模擬器</h3>
-        <div style="font-size: 0.9rem;">目標淨值：<input type="number" id="targetNwInput" value="5000"> 萬</div>
+        <h3 style="margin:0; font-size:1rem; margin-bottom:10px;">🔭 台積電 4000 模擬器</h3>
+        <div style="font-size: 0.9rem;">新目標淨值：<input type="number" id="targetNwInput" value="5000"> 萬</div>
         <div style="font-weight: bold; color: var(--danger); font-size: 1.1rem; margin-top:10px;">👉 0050 需漲到：<span id="requiredPriceOutput">$---</span></div>
     </div>
 
     <div class="asset-list-container">
         <table>
             <thead>
-                <tr><th>資產項目</th><th>市值</th><th>負債</th><th>屬於我們的錢</th></tr>
+                <tr><th>資產項目</th><th>市值</th><th>負債</th><th>屬於我們的錢</th><th>曝險率</th></tr>
             </thead>
             <tbody>
                 <tr>
@@ -101,48 +105,52 @@
                     <td data-label="市值">1,161.9 萬</td>
                     <td data-label="負債">0.0 萬</td>
                     <td data-label="我們的錢"><strong>1,161.9 萬</strong></td>
+                    <td data-label="曝險率"><strong>69.6%</strong></td>
                 </tr>
                 <tr>
                     <td data-label="資產項目"><strong>💎 0050</strong></td>
                     <td data-label="市值">191.2 萬</td>
                     <td data-label="負債">0.0 萬</td>
                     <td data-label="我們的錢"><strong>191.2 萬</strong></td>
+                    <td data-label="曝險率"><strong>5.7%</strong></td>
                 </tr>
                 <tr>
                     <td data-label="資產項目"><strong>🏢 惠宇清寬</strong></td>
                     <td data-label="市值">2,850.0 萬</td>
                     <td data-label="負債">2,280.0 萬</td>
                     <td data-label="我們的錢"><strong>570.0 萬</strong></td>
+                    <td data-label="曝險率">-</td>
                 </tr>
                 <tr>
                     <td data-label="資產項目"><strong>🏢 國泰美禾</strong></td>
                     <td data-label="市值">2,933.0 萬</td>
                     <td data-label="負債">2,346.4 萬</td>
                     <td data-label="我們的錢"><strong>586.6 萬</strong></td>
+                    <td data-label="曝險率">-</td>
                 </tr>
                 <tr>
                     <td data-label="資產項目"><strong>🏢 磐興寬境</strong></td>
                     <td data-label="市值">2,432.0 萬</td>
                     <td data-label="負債">1,945.6 萬</td>
                     <td data-label="我們的錢"><strong>486.4 萬</strong></td>
+                    <td data-label="曝險率">-</td>
                 </tr>
                 <tr>
                     <td data-label="資產項目"><strong>💰 現金儲備</strong></td>
                     <td data-label="市值">340.0 萬</td>
                     <td data-label="負債">0.0 萬</td>
                     <td data-label="我們的錢"><strong>340.0 萬</strong></td>
+                    <td data-label="曝險率">-</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <footer>最後觀測：2026-07-07 更新完畢 (CST)</footer>
+    <footer>最後觀測：新紀元啟動 (CST) ｜ 迎向 TSM 4000</footer>
 </div>
 
 <script>
-    // 18張 0050 + 300張正二(等效大約 219張 0050)，總計約 237,000 股的曝險推力
     const shares = 237000; 
-    // 固定資產淨值 = 總淨值 3336.1 - (正二 1161.9 + 0050 191.2) = 1983.0 萬
     const fixedNetWorth = 19830000.0; 
     
     function updateSimulator() {
