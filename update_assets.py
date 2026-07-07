@@ -19,14 +19,27 @@ TARGET_CAPITAL = 100000000
 HOUSE_MARKET_VALUE = 28500000 + 29330000 + 24320000
 HOUSE_LOAN = HOUSE_MARKET_VALUE * 0.8
 
-# --- 物理數據捕捉 ---
-now = datetime.datetime.now() + datetime.timedelta(hours=8)
+# --- 修正後的物理數據捕捉邏輯 ---
 try:
-    ticker = yf.Ticker("0050.TW")
-    current_price = ticker.fast_info.last_price
-    if not current_price: current_price = 98.35
+    # 分別抓取兩檔 ETF
+    ticker_50 = yf.Ticker("0050.TW")
+    ticker_l2 = yf.Ticker("00631L.TW")
+    
+    price_50 = ticker_50.fast_info.last_price
+    price_l2 = ticker_l2.fast_info.last_price
+    
+    # 假設您現在持有 18 張 0050 與 300 張正二
+    shares_50 = 18000
+    shares_l2 = 300000
+    
+    # 計算總市值與獲利
+    stock_market_value = (shares_50 * price_50) + (shares_l2 * price_l2)
+    
 except:
-    current_price = 98.35
+    # 若抓取失敗的備援數值 (建議設為您當日的最新參考價)
+    price_50 = 111.0
+    price_l2 = 60.0 # 請填入正二實際市價
+    stock_market_value = (18000 * price_50) + (300000 * price_l2)
 
 # --- 能階運算 ---
 stock_market_value = SHARES * current_price
