@@ -28,25 +28,20 @@
         .countdown-card, .simulator-card { background: var(--card); padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .bar-bg { background: #e2e8f0; height: 10px; border-radius: 5px; overflow: hidden; margin: 12px 0; }
         .bar-fill { background: #2f3e5c; height: 100%; width: 5.12%; transition: 1.5s; }
-        .main-bar { background: linear-gradient(90deg, var(--accent), var(--success)); height: 20px; border-radius: 10px; width: 34.84%; transition: 1.5s; }
+        .main-bar { background: linear-gradient(90deg, var(--accent), var(--success)); height: 20px; border-radius: 10px; width: 33.36%; transition: 1.5s; }
 
-        /* 🔑 核心優化：響應式資產清單 (電腦變表格，手機變字卡) */
         .asset-list-container { width: 100%; margin-bottom: 20px; }
         table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 15px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         th { background: rgba(37, 99, 235, 0.05); color: var(--accent); font-weight: 600; padding: 15px; text-align: left; }
         td { padding: 15px; border-bottom: 1px solid #eee; text-align: left; }
 
         @media (max-width: 600px) {
-            /* 📱 手機版：強制將表格轉換為字卡模式 */
             table, thead, tbody, th, td, tr { display: block; }
-            thead { display: none; } /* 隱藏表頭 */
+            thead { display: none; } 
             tr { margin-bottom: 15px; border-radius: 15px; overflow: hidden; border: 1px solid #e2e8f0; background: var(--card); }
             td { position: relative; padding-left: 45%; border: none; border-bottom: 1px solid #f1f5f9; min-height: 45px; display: flex; align-items: center; }
             td:last-child { border-bottom: none; background: rgba(16, 185, 129, 0.03); }
-            
-            /* 注入標籤內容 */
             td:before { content: attr(data-label); position: absolute; left: 15px; width: 40%; font-weight: bold; color: #64748b; font-size: 0.85rem; }
-            
             .stat-grid { grid-template-columns: repeat(2, 1fr); }
             .stat-card:last-child { grid-column: span 2; }
             input[type="number"] { font-size: 16px !important; }
@@ -76,17 +71,17 @@
     </div>
 
     <div class="stat-grid">
-        <div class="stat-card" style="border-top-color:#94a3b8"><div class="stat-label">總資產</div><div class="stat-value" style="color:#64748b">10,556.4萬</div></div>
-        <div class="stat-card" style="border-top-color:var(--danger)"><div class="stat-label">總負債</div><div class="stat-value" style="color:var(--danger)">-7,072.0萬</div></div>
-        <div class="stat-card" style="border-top-color:var(--primary)"><div class="stat-label">真實總淨值</div><div class="stat-value">3,484.4萬</div></div>
-        <div class="stat-card" style="border-top-color:var(--success); background:#f0fdf4;"><div class="stat-label" style="color:#166534;">股市總獲利</div><div class="stat-value" style="color:var(--success)">+909.4萬</div><div style="font-size:0.7rem; font-weight:800; color:var(--success);">ROI 102.2%</div></div>
-        <div class="stat-card" style="border-top-color:var(--success)"><div class="stat-label">防禦維持率</div><div class="stat-value" style="color:var(--success)">450.3%</div></div>
+        <div class="stat-card" style="border-top-color:#94a3b8"><div class="stat-label">總資產</div><div class="stat-value" style="color:#64748b">9,908.1萬</div></div>
+        <div class="stat-card" style="border-top-color:var(--danger)"><div class="stat-label">總負債</div><div class="stat-value" style="color:var(--danger)">-6,572.0萬</div></div>
+        <div class="stat-card" style="border-top-color:var(--primary)"><div class="stat-label">真實總淨值</div><div class="stat-value">3,336.1萬</div></div>
+        <div class="stat-card" style="border-top-color:var(--success); background:#f0fdf4;"><div class="stat-label" style="color:#166534;">股市總獲利</div><div class="stat-value" style="color:var(--success)">+803.1萬</div><div style="font-size:0.7rem; font-weight:800; color:var(--success);">ROI 90.2%</div></div>
+        <div class="stat-card" style="border-top-color:var(--success)"><div class="stat-label">防禦維持率</div><div class="stat-value" style="color:var(--success)">無借貸</div><div style="font-size:0.7rem; font-weight:800; color:var(--success);">100% 絕對防禦</div></div>
     </div>
 
     <div class="countdown-card">
         <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><h3 style="margin:0; font-size:1rem; color:var(--accent);">🚀 破億達成度</h3><span style="font-weight:bold; font-size:0.85rem;">目標 1 億</span></div>
         <div class="bar-bg" style="height:20px;"><div class="main-bar"></div></div>
-        <div style="text-align:right; font-weight:bold; color:var(--accent); font-size:0.85rem; margin-top:5px;">34.8% 已完成</div>
+        <div style="text-align:right; font-weight:bold; color:var(--accent); font-size:0.85rem; margin-top:5px;">33.4% 已完成</div>
     </div>
 
     <div class="simulator-card">
@@ -102,10 +97,16 @@
             </thead>
             <tbody>
                 <tr>
+                    <td data-label="資產項目"><strong>🚀 00631L (正二)</strong></td>
+                    <td data-label="市值">1,161.9 萬</td>
+                    <td data-label="負債">0.0 萬</td>
+                    <td data-label="我們的錢"><strong>1,161.9 萬</strong></td>
+                </tr>
+                <tr>
                     <td data-label="資產項目"><strong>💎 0050</strong></td>
-                    <td data-label="市值">2,251.4 萬</td>
-                    <td data-label="負債">500.0 萬</td>
-                    <td data-label="我們的錢"><strong>1,751.4 萬</strong></td>
+                    <td data-label="市值">191.2 萬</td>
+                    <td data-label="負債">0.0 萬</td>
+                    <td data-label="我們的錢"><strong>191.2 萬</strong></td>
                 </tr>
                 <tr>
                     <td data-label="資產項目"><strong>🏢 惠宇清寬</strong></td>
@@ -126,21 +127,24 @@
                     <td data-label="我們的錢"><strong>486.4 萬</strong></td>
                 </tr>
                 <tr>
-                    <td data-label="資產項目"><strong>💰 預備金</strong></td>
-                    <td data-label="市值">90.0 萬</td>
+                    <td data-label="資產項目"><strong>💰 現金儲備</strong></td>
+                    <td data-label="市值">340.0 萬</td>
                     <td data-label="負債">0.0 萬</td>
-                    <td data-label="我們的錢"><strong>90.0 萬</strong></td>
+                    <td data-label="我們的錢"><strong>340.0 萬</strong></td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <footer>最後觀測：2026-07-07 16:22:55 (CST)</footer>
+    <footer>最後觀測：2026-07-07 更新完畢 (CST)</footer>
 </div>
 
 <script>
-    const shares = 212000;
-    const fixedNetWorth = 12330000.0;
+    // 18張 0050 + 300張正二(等效大約 219張 0050)，總計約 237,000 股的曝險推力
+    const shares = 237000; 
+    // 固定資產淨值 = 總淨值 3336.1 - (正二 1161.9 + 0050 191.2) = 1983.0 萬
+    const fixedNetWorth = 19830000.0; 
+    
     function updateSimulator() {
         const targetWan = parseFloat(document.getElementById('targetNwInput').value) || 0;
         const targetTotal = targetWan * 10000;
